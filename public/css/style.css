@@ -1,49 +1,29 @@
-body {
-    background-color: #536878; /* Background color */
-    color: #fff; /* Text color */
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
-    text-align: center;
+#logo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    display: block;
+}
+:root {
+    --primary-color: #62493c;
+    --accent-color: #e66c2c;
+    --background-color: #d3ad99;
+    --text-color: #6692a9;
+    --highlight-color: #aac2cf;
+    --logo-color: #f0df75;
+    --footer-color: #f9f3cd;
 }
 
-.header {
-    display: flex;
-    justify-content: flex-start; 
-    background-color: #000;
-}
-
-.header h1 {
-    font-size: 3rem;
-    color: #e77d11;
-}
-
-.game-container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 50px;
-}
-
-.left img {
-    width: 200px;
-    height: auto;
-}
-
-button {
-    margin: 10px;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-/* Added a brown footer */
-.footer {
+header {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    background-color: #964B00; /* Brown color */
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    padding: 10px 0;
+    background-color: transparent; /* Changed from var(--primary-color) to transparent */
+    color: var(--logo-color); /* Changed from #fff to var(--logo-color) */
+}
+
+body {
+    background: url('/images/a.jpg') no-repeat center center fixed !important;
+    background-size: cover;
+    background-color: var(--background-color); /* Changed from #4c5b70 to var(--background-color) */
 }

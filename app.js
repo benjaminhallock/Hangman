@@ -3,18 +3,17 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const bodyParser = require('body-parser');
 const gameRouter = require('./routes/game');
-
 const app = express();
 
-// Register a custom helper for equality check
 const hbs = exphbs.create({
     extname: '.hbs',
     helpers: {
-        eq: (a, b) => a === b // Custom helper to check equality
+        eq: (v1, v2) => v1 === v2,
+        notEq: (v1, v2) => v1 !== v2,
+        isGameOver: (gameOver) => gameOver.status !== 'ongoing'
     }
 });
 
-// Set up Handlebars
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
@@ -31,8 +30,6 @@ app.get('/', (req, res) => {
     res.redirect('/game/new');
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen(3000, () => {
+    console.log(`Server running on http://localhost:3000`);
 });

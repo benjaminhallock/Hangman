@@ -1,41 +1,58 @@
-<div class="header">
-    <img src="/images/hangman.jpg" alt="Hangman Logo">
-    <h1>{{gameTitle}}</h1>
+<div class="container-fluid mt-2">
+  <div class="row">
+    <div class="col-md-4 col-12">
+      <h2>Pick A Letter</h2>
+      <form action="/game/guess" method="POST">
+        <select name="letter" id="letterSelect" class="form-control">
+          {{#each remainingLetters}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+        <button type="submit" class="btn btn-primary mt-2">Pick Letter</button>
+      </form>
+    </div>
+
+    <div class="col-md-4 col-12 text-center">
+      <form action="/game/new" method="GET">
+        <button type="submit" class="btn btn-success mb-2">Start New Game</button>
+      </form>
+
+      <img src="{{hangmanImage}}" alt="Hangman Image" class="img-fluid" />
+      <p>Word: {{wordDisplay}}</p>
+
+      <button type="button" class="btn btn-secondary mb-2" data-toggle="tooltip" data-placement="right"
+        title="{{hint}}">
+        Hint
+      </button>
+      <p>Right Guesses: {{rightGuesses}}</p>
+      <p>Wrong Guesses: {{wrongGuesses}}</p>
+      <p>Remaining Guesses: {{remainingGuesses}}</p>
+      <p>Guessed Letters: {{guessedLetters}}</p>
+    </div>
+
+    <div class="col-md-4 col-12 text-center">
+      {{#if (notEq gameOver.status "ongoing")}}
+      <p>{{gameOver.message}}</p>
+      {{#if (eq gameOver.status "win")}}
+      <h2>You Won!</h2>
+      <img src="/images/mario.gif" alt="Win Image" class="img-fluid" />
+      {{else if (eq gameOver.status "lose")}}
+      <h2>Game Over!</h2>
+      <img src="/images/gameOver.png" alt="Game Over Image" class="img-fluid" />
+      {{/if}}
+      {{else}}
+      <img src="/images/leftImage.jpg" alt="Hangman Start Image" class="img-fluid" />
+      {{/if}}
+    </div>
+  </div>
 </div>
 
-<div class="game-container">
-    <div class="left">
-        <img src="/images/hangman.jpg" alt="Hangman Image">
-        <h2>Pick A Letter</h2>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-        <form action="/game/guess" method="POST">
-            <select name="letter" id="letterSelect">
-                {{#each letters}} <!-- Use the remaining letters array -->
-                    <option value="{{this}}">{{this}}</option>
-                {{/each}}
-            </select>
-            <button type="submit">Pick Letter</button>
-        </form>
-    </div>
-
-    <div class="middle">
-        <!-- Start New Game Button -->
-        <form action="/game/new" method="GET">
-            <button type="submit">Start New Game</button>
-        </form>
-    </div>
-
-    <div class="right">
-        <p>Word: {{wordDisplay}}</p>
-        <p>Hint: {{hint}}</p>
-        <p>Remaining Guesses: {{remainingGuesses}}</p>
-        <p>Guessed Letters: {{guessedLetters}}</p>
-
-        <!-- Display game status -->
-        {{#if gameOver}}
-            <h2>{{#if (eq gameOver.status "win")}}You Won!{{else}}Game Over{{/if}}</h2>
-            <p>{{gameOver.message}}</p>
-            <img src="/images/game-over-image.jpg" alt="Game Over Image"> <!-- Placeholder for your image -->
-        {{/if}}
-    </div>
-</div>
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+</script> 
